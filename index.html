@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Surat Untuk Kamu</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #003973, #a8c0ff);
+      color: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      padding: 30px;
+      text-align: center;
+      position: relative;
+      height: 420px;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .page {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      transform: translateX(100%);
+      transition: all 0.6s ease;
+      pointer-events: none;
+    }
+
+    .page.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+      position: relative;
+    }
+
+    h1 {
+      margin: 20px 0;
+      color: #003973;
+    }
+
+    p {
+      min-height: 80px;
+    }
+
+    button {
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 10px 5px;
+      display: none;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      animation: floatUp 8s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    .blue-love {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      font-size: 24px;
+      z-index: 1;
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="hearts"></div>
+
+  <div class="container" role="main" aria-label="Surat cinta berisi beberapa halaman">
+    <div class="page active" id="page1">
+      <h1>Hallo tuan putriku...</h1>
+      <p class="text" data-content="Hari ini akuu biasa ajaa sihh... Biasa bangun agak siang, biasa melamun sambil mikir, dan yang paling biasaa adalah mikirin kamuu tanpa alesan yang jelass. mwehehehe🤭" aria-live="polite"></p>
+      <button onclick="nextPage(this)">Lanjut</button>
+    </div>
+    <div class="page" id="page2">
+      <h1>Cantiknya Pelangi</h1>
+      <p class="text" data-content="Oh iyaa, kemarin akuu sempet liatt pelangii, warnanya cantikk bangett. Tapii... tetep kalah sama kecantikan kamuu😉, wkwk. Ehh beneran lohh, bahkan kecantikan kamuu bisa bikin hari yang tadinya mumet jadii happy tauu😋" aria-live="polite"></p>  
+      <button onclick="nextPage(this)">Lanjut</button>
+    </div>
+    <div class="page" id="page3">
+      <h1>Akuu Heran Dehh🤔</h1>
+      <p class="text" data-content="Akuu sukaa heran dehh... kamuu tuhh ngapain sii nongkrong terus di kepala akuu? Udah kayak penyewa tetap ajaa , tapi nggaa bayar kos. Lagi ngapa-ngapain ajaa tiba-tiba keingett kamuu padahal akuu gaa nyuruh kamuu buat nongkrong di kepalakuu dehh?" aria-live="polite"></p>
+      <button onclick="nextPage(this)">Lanjut</button>
+    </div>
+    <div class="page" id="page4">
+      <h1>Akuu Traktir mauu??</h1>
+      <p class="text" data-content="Kadang akuu mikir, kalau kamuu deket, mungkin akuu udahh sering traktir kamuu es krim terus belii jajan apaa gituu, bukan buat gaya-gayaan, tapi biar akuu punya alesan ngobrol lebih lama. Tapi ya gituu.. kamuu jauh. 😔" aria-live="polite"></p>
+      <button onclick="nextPage(this)">Lanjut</button>
+    </div>
+    <div class="page" id="page5">
+      <h1>Tauu Nggaa</h1>
+      <p class="text" data-content="Tapi tau nggaa, kamuu ituu ibarat playlist favorit yang nggak pernah akuu skipp. Mauu lagi senang, sedih, atau gabutt, mikirin kamu tuh selalu cocokk. Nggaa pernah mood aku hancurr." aria-live="polite"></p>
+      <button onclick="nextPage(this)">Lanjut</button>
+    </div>
+    <div class="page" id="page6">
+      <h1>Terima Kasih 💙</h1>
+      <p class="text" data-content="Udah yaa, segini duluu. Kamu jagaa diri di sanaa. Jangann kebanyakan begadangg teruss, jangan skipp makann, dan… jangan terlalu manis. Soalnya akuu udahh cukup pusingg mikirin kamuu, jangan sampai diabetes jugaa. 😌" aria-live="polite"></p>
+      <button onclick="backToStart(this)">Kembali ke Awal</button>
+    </div>
+
+    <div class="blue-love">💙</div>
+  </div>
+
+  <audio id="bgm" autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_89ba62f9b8.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    let currentPage = 1;
+    const totalPages = 6;
+    const typingSpeed = 35;
+
+    function typeWriter(paragraph, text, callback) {
+      paragraph.textContent = '';
+      let i = 0;
+
+      function type() {
+        if (i < text.length) {
+          paragraph.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, typingSpeed);
+        } else {
+          callback();
+        }
+      }
+
+      type();
+    }
+
+    function showPage(n) {
+      const pages = document.querySelectorAll('.page');
+      pages.forEach(p => p.classList.remove('active'));
+      const current = pages[n - 1];
+      current.classList.add('active');
+
+      const paragraph = current.querySelector('.text');
+      const button = current.querySelector('button');
+      const content = paragraph.getAttribute('data-content');
+
+      button.style.display = 'none';
+      typeWriter(paragraph, content, () => {
+        button.style.display = 'inline-block';
+      });
+    }
+
+    function nextPage(button) {
+      button.style.display = 'none';
+      setTimeout(() => {
+        if (currentPage < totalPages) {
+          currentPage++;
+          showPage(currentPage);
+        }
+      }, 500);
+    }
+
+    function backToStart(button) {
+      button.style.display = 'none';
+      setTimeout(() => {
+        currentPage = 1;
+        showPage(currentPage);
+      }, 500);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      showPage(currentPage);
+    });
+
+    window.addEventListener('click', () => {
+      const audio = document.getElementById('bgm');
+      if (audio.paused) audio.play();
+    }, { once: true });
+
+    function spawnHearts() {
+      const heartsContainer = document.getElementById('hearts');
+      const svgNS = "http://www.w3.org/2000/svg";
+      const heart = document.createElementNS(svgNS, "svg");
+      heart.setAttribute("class", "heart");
+      heart.setAttribute("viewBox", "0 0 24 24");
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (6 + Math.random() * 4) + 's';
+      const size = 16 + Math.random() * 10;
+      heart.style.width = size + 'px';
+      heart.style.height = size + 'px';
+
+      const path = document.createElementNS(svgNS, "path");
+      path.setAttribute("fill", "rgba(255,105,180,0.5)");
+      path.setAttribute("d", "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 \
+        2 6 4 4 6.5 4c1.74 0 3.41 1.01 \
+        4.22 2.09C11.09 5.01 12.76 4 \
+        14.5 4 17 4 19 6 19 8.5c0 3.78-3.4 \
+        6.86-8.55 11.54L12 21.35z");
+      heart.appendChild(path);
+
+      heartsContainer.appendChild(heart);
+
+      setTimeout(() => {
+        heartsContainer.removeChild(heart);
+      }, 10000);
+    }
+
+    setInterval(spawnHearts, 500);
+  </script>
+</body>
+</html>
